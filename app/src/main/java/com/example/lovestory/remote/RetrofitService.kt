@@ -1,9 +1,8 @@
-package com.example.lovestory.model
+package com.example.lovestory.remote
 
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 class RetrofitService {
     val retrofit = Retrofit.Builder().baseUrl("https://love-calculator.p.rapidapi.com/")
@@ -14,6 +13,4 @@ class RetrofitService {
     }
 
     var api = retrofit.create(LoveApi::class.java)
-
-
 }

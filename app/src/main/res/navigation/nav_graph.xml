@@ -3,20 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loveFragment1">
+    app:startDestination="@id/firstFragment">
 
     <fragment
         android:id="@+id/loveFragment1"
         android:name="com.example.lovestory.fragmenlove1.LoveFragment1"
         android:label="fragment_love1"
         tools:layout="@layout/fragment_love1" >
-        <action
-            android:id="@+id/action_loveFragment1_to_loveFragment2"
-            app:destination="@id/loveFragment2" />
     </fragment>
     <fragment
         android:id="@+id/loveFragment2"
         android:name="com.example.lovestory.fragmentlove2.LoveFragment2"
         android:label="fragment_love2"
         tools:layout="@layout/fragment_love2" />
+    <fragment
+        android:id="@+id/firstFragment"
+        android:name="com.example.lovestory.first.FirstFragment"
+        android:label="LoveFragment3"
+        tools:layout="@layout/fragment_first"/>
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        android:name="com.example.lovestory.onboarding.OnBoardingFragment"
+        android:label="OnBoardingFragment"
+        tools:layout="@layout/fragment_on_boarding"/>
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.example.lovestory.history.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
 </navigation>

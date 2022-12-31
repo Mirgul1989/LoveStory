@@ -1,31 +1,35 @@
 package com.example.lovestory.fragmenlove1
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.lovestory.App
 import com.example.lovestory.R
 import com.example.lovestory.databinding.FragmentLove1Binding
-import com.example.lovestory.model.LoveModel
-import com.example.lovestory.model.RetrofitService
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.lovestory.history.HistoryViewModel
+import com.example.lovestory.main.LoveViewModel
+import com.example.lovestory.room.AppDataBase
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class LoveFragment1 : Fragment() {
     private lateinit var binding: FragmentLove1Binding
+    private val viewModel: LoveViewModel by viewModels()
+    private val historyViewModel: HistoryViewModel by viewModels()
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding=FragmentLove1Binding.inflate(layoutInflater)
+    ): View {
+        binding = FragmentLove1Binding.inflate(inflater,container,false)
         return binding.root
 
     }
@@ -36,27 +40,25 @@ class LoveFragment1 : Fragment() {
     }
 
     private fun initClicker() {
+
         with(binding) {
             calculateBtn.setOnClickListener {
-                RetrofitService().getLoveApi().getResult(
-                    firstName = firstNameEd.text.toString(),
-                    secondName = secondNameEd.text.toString()
-                ).enqueue(object : Callback<LoveModel> {
-                    override fun onResponse(call: Call<LoveModel>, response: Response<LoveModel>) {
-                        Log.e("ololo", "onResponse: ${response.body()?.percentage}")
-                        val bundle = bundleOf(
-                            "fname" to firstNameEd.text.toString(),
-                            "sname" to secondNameEd.text.toString(),
-                            "percentage" to response.body()?.percentage
+                viewModel.getLiveLoveModel(
+                    firstName.text.toString(),
+                    secondName.text.toString()
+                ).observe(viewLifecycleOwner,
+                    Observer {  historyViewModel.getInsert(it)
+
+                        findNavController().navigate(
+                            R.id.loveFragment2, bundleOf("key" to it)
 
                         )
-                        findNavController().navigate(R.id.action_loveFragment1_to_loveFragment2,bundle)
-                    }
+                    })
+            }
+            historyBtn.setOnClickListener {
+                findNavController().navigate(R.id.historyFragment)
+            }
 
-                    override fun onFailure(call: Call<LoveModel>, t: Throwable) {
-                        Log.e("ololo", "onFailure:${t.message} ")
-                    }
-
-                })
+        }
     }
-}}}
+}
