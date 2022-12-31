@@ -1,7 +1,8 @@
-package com.example.lovestory
+package com.example.lovestory.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.lovestory.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
