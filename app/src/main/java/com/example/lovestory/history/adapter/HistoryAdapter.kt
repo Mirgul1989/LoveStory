@@ -1,15 +1,12 @@
 package com.example.lovestory.history.adapter
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.example.lovestory.R
 import com.example.lovestory.databinding.ItemHistoryBinding
 import com.example.lovestory.remote.LoveModel
 
@@ -35,6 +32,7 @@ class HistoryAdapter(private val list: ArrayList<LoveModel> = arrayListOf(), val
         return list.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun addHistory(modelHistory: List<LoveModel>) {
         this.list.clear()
         this.list.addAll(modelHistory)
@@ -48,24 +46,24 @@ class HistoryAdapter(private val list: ArrayList<LoveModel> = arrayListOf(), val
         fun bind(list: LoveModel) {
             with(binding)
             {
-                tvFirsName.text=list.firstName
+                tvFirsName.text = list.firstName
                 tvSecondName.text = list.secondName
                 percentage1.text = list.percentage
                 result1.text = list.result
             }
 
             itemView.setOnLongClickListener {
-                onLong(list)
+                onLong()
                 return@setOnLongClickListener true
             }
         }
 
-        private fun onLong(loveModel: LoveModel) {
+        private fun onLong() {
             val alertDialog = AlertDialog.Builder(context)
             alertDialog.setTitle("Update?")
-            alertDialog.setNegativeButton("Cansel", DialogInterface.OnClickListener { _, _ ->
+            alertDialog.setNegativeButton("Cansel", { _, _ ->
             })
-            alertDialog.setNegativeButton("Cansel", DialogInterface.OnClickListener { _, _ -> })
+            alertDialog.setNegativeButton("Cansel", { _, _ -> })
             alertDialog.show()
 
         }

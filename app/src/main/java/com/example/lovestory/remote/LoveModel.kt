@@ -8,6 +8,7 @@ import java.io.Serializable
 data class LoveModel(
     @SerializedName("fname")
 var firstName:String? = null,
+
     @SerializedName("sname")
 var secondName:String?= null,
 var percentage:String? = null,
